@@ -1,5 +1,11 @@
-import styles from "./page.module.scss";
+import { Box, Typography } from "@mui/material";
 
 export default function Home() {
-  return <div className={styles.page}></div>;
+  // const { data, error, isLoading } = useQuery("products", getProducts);
+
+  return (
+    <Box>
+      <Typography>asdsaad</Typography>
+    </Box>
+  );
 }
