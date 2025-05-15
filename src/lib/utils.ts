@@ -1,10 +1,10 @@
 import axios from "axios";
+import { Product } from "./types";
+import { API_ENDPOINTS } from "./consts";
 
-const API_URL = "https://api.example.com/products";
-
-export async function getProducts() {
+export async function getProducts(): Promise<Product[]> {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_ENDPOINTS.PRODUCTS);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
