@@ -2,38 +2,41 @@
 
 import { Box } from "@mui/material";
 import { Product } from "@/lib/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import { getProducts } from "@/lib/utils";
+
 import ProductCard from "@/components/ProductCard";
 
-const DUMMY_PRODUCTS: Product[] = [
-  {
-    id: 1,
-    title: "Product 1",
-    price: 100,
-    description: "Description 1",
-    category: "Category 1",
-    image: "https://via.placeholder.com/150",
-    rating: {
-      rate: 4.5,
-      count: 10,
-    },
-  },
-  {
-    id: 2,
-    title: "Product 2",
-    price: 200,
-    description: "Description 2",
-    category: "Category 2",
-    image: "https://via.placeholder.com/150",
-    rating: {
-      rate: 4.0,
-      count: 20,
-    },
-  },
-];
-
 export default function Home() {
-  const [products] = useState<Product[]>(DUMMY_PRODUCTS);
+  const [products] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        products.push(...data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
+  if (products.length === 0) {
+    return <div>No products available</div>;
+  }
 
   return (
     <Box>
