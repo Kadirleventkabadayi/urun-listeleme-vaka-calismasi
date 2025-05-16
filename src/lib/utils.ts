@@ -2,7 +2,7 @@ import axios from "axios";
 import { Product } from "./types";
 import { API_ENDPOINTS } from "./consts";
 
-export async function getProducts(): Promise<Product[]> {
+async function getProducts(): Promise<Product[]> {
   try {
     const response = await axios.get(API_ENDPOINTS.PRODUCTS);
     return response.data;
@@ -11,3 +11,13 @@ export async function getProducts(): Promise<Product[]> {
     throw error;
   }
 }
+
+function getCategoriesWithCount(products: Product[]): Record<string, number> {
+  return products.reduce((acc, product) => {
+    const cat = product.category;
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+}
+
+export { getProducts, getCategoriesWithCount };
