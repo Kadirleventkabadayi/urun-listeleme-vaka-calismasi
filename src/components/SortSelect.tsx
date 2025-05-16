@@ -2,18 +2,19 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 import { useState } from "react";
 
 type Props = {
-  onSortChange?: (sortValue: string) => void;
+  onSortChange?: (value: "low-to-high" | "high-to-low" | "") => void;
 };
 
 export default function SortSelect({ onSortChange }: Props) {
-  const [sort, setSort] = useState("");
+  const [sortValue, setSortValue] = useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
-    const value = event.target.value;
-    setSort(value);
+    const value = event.target.value as "low-to-high" | "high-to-low" | "";
+    setSortValue(value);
     if (onSortChange) {
       onSortChange(value);
     }
@@ -21,13 +22,13 @@ export default function SortSelect({ onSortChange }: Props) {
 
   return (
     <FormControl sx={{ m: 1, minWidth: 150, bgcolor: "white" }}>
-      <InputLabel id="sort-select-label">Sırala</InputLabel>
+      <InputLabel id="sort-select-label">Sıralama</InputLabel>
       <Select
         labelId="sort-select-label"
         id="sort-select"
-        value={sort}
+        value={sortValue}
         onChange={handleChange}
-        label="Sırala"
+        label="Sıralama"
         autoWidth
       >
         <MenuItem value="">

@@ -20,4 +20,15 @@ function getCategoriesWithCount(products: Product[]): Record<string, number> {
   }, {} as Record<string, number>);
 }
 
-export { getProducts, getCategoriesWithCount };
+function sortProductsByPrice(
+  products: Product[],
+  sortOrder: "low-to-high" | "high-to-low" | ""
+) {
+  if (!sortOrder) return products;
+
+  return [...products].sort((a, b) =>
+    sortOrder === "low-to-high" ? a.price - b.price : b.price - a.price
+  );
+}
+
+export { getProducts, getCategoriesWithCount, sortProductsByPrice };
