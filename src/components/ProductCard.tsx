@@ -1,12 +1,13 @@
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 
 import { Product } from "@/lib/types";
+import { useCartStore } from "../app/store/cartStore";
 
 function ProductCard({
   id,
@@ -17,6 +18,8 @@ function ProductCard({
   price,
   rating,
 }: Product) {
+  const addToCart = useCartStore((state) => state.addToCart);
+
   return (
     <Card key={id} sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -25,23 +28,21 @@ function ProductCard({
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {category}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {description}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="body2" component="div">
             {price} TL
           </Typography>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="body2" component="div">
             rating: {rating.rate} ({rating.count})
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => addToCart({ id, title, price, image })}
+        >
+          Sepete Ekle
         </Button>
       </CardActions>
     </Card>

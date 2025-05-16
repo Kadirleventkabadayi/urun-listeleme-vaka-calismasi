@@ -25,8 +25,9 @@ export default function Searchbar() {
   };
 
   return (
-    <Stack spacing={2} sx={{ width: 300, bgcolor: "white" }}>
+    <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete
+        sx={{ bgcolor: "white" }}
         id="Searchbar"
         freeSolo
         disableClearable

@@ -9,27 +9,15 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  addedAt: number; // timestamp
-};
+import { useCartStore } from "../app/store/cartStore";
+import { CardMedia } from "@mui/material";
 
-type MiniCartProps = {
-  cartItems: CartItem[];
-  onAdd: (id: string) => void;
-  onRemove: (id: string) => void;
-  onDelete: (id: string) => void;
-};
+export default function MiniCart() {
+  const cartItems = useCartStore((state) => state.cartItems);
+  const increaseQuantity = useCartStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-export default function MiniCart({
-  cartItems,
-  onAdd,
-  onRemove,
-  onDelete,
-}: MiniCartProps) {
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -38,7 +26,7 @@ export default function MiniCart({
   const sortedItems = [...cartItems].sort((a, b) => b.addedAt - a.addedAt);
 
   return (
-    <Box sx={{ width: 350, p: 2 }} role="presentation" hidden={!open}>
+    <Box sx={{ width: 350, p: 2 }} role="presentation">
       <Typography variant="h6" gutterBottom>
         Mini Sepet
       </Typography>
@@ -56,7 +44,7 @@ export default function MiniCart({
                 <IconButton
                   edge="end"
                   aria-label="remove"
-                  onClick={() => onRemove(item.id)}
+                  onClick={() => decreaseQuantity(item.id)}
                 >
                   <RemoveIcon />
                 </IconButton>
@@ -74,22 +62,28 @@ export default function MiniCart({
                 <IconButton
                   edge="end"
                   aria-label="add"
-                  onClick={() => onAdd(item.id)}
+                  onClick={() => increaseQuantity(item.id)}
                 >
                   <AddIcon />
                 </IconButton>
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => onDelete(item.id)}
+                  onClick={() => removeFromCart(item.id)}
                 >
                   <DeleteIcon />
                 </IconButton>
               </Box>
             }
           >
+            <CardMedia
+              component="img"
+              image={item.image}
+              alt={item.title}
+              sx={{ width: 50, height: 50, objectFit: "contain", mr: 2 }}
+            />
             <ListItemText
-              primary={item.name}
+              primary={item.title}
               secondary={`${item.price.toFixed(2)} ₺ x ${item.quantity} = ${(
                 item.price * item.quantity
               ).toFixed(2)} ₺`}

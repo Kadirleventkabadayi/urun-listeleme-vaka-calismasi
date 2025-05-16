@@ -14,7 +14,7 @@ type Props = {
 export default function AppHeader({ onMenuClick, onCartClick }: Props) {
   return (
     <Box sx={{ width: "100vw" }}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             size="large"

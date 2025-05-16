@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { Divider, Typography } from "@mui/material";
 
 type DrawerListProps = {
   categoriesWithCount: Record<string, number>;
@@ -17,6 +18,10 @@ export default function DrawerList({
 }: DrawerListProps) {
   return (
     <Box sx={{ width: 250, p: 2 }} role="presentation">
+      <Typography variant="h6" gutterBottom>
+        Kategoriler
+      </Typography>
+      <Divider />
       <List>
         {Object.entries(categoriesWithCount).map(([category, count]) => (
           <ListItem key={category} disablePadding>

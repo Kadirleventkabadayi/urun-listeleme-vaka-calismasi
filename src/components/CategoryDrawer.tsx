@@ -7,7 +7,11 @@ import DrawerList from "./DrawerList";
 import AppHeader from "./AppHeader";
 import MiniCart from "./MiniCart";
 
-export default function MainLayout() {
+type Props = {
+  onCategoryChange?: (selected: string[]) => void;
+};
+
+export default function CategoryDrawer({ onCategoryChange }: Props) {
   const products = useProductStore((state) => state.products);
   const categoriesWithCount = getCategoriesWithCount(products);
 
@@ -21,15 +25,18 @@ export default function MainLayout() {
       : [...selectedCategories, category];
 
     setSelectedCategories(newSelection);
+
+    if (onCategoryChange) {
+      onCategoryChange(newSelection);
+    }
   };
 
   return (
-    <Box>
+    <Box sx={{ minHeight: "60px" }}>
       <AppHeader
         onMenuClick={() => setCategoryDrawerOpen(true)}
         onCartClick={() => setCartDrawerOpen(true)}
       />
-
       <Drawer
         anchor="left"
         open={categoryDrawerOpen}
@@ -43,19 +50,13 @@ export default function MainLayout() {
           />
         </Box>
       </Drawer>
-
       <Drawer
         anchor="right"
         open={cartDrawerOpen}
         onClose={() => setCartDrawerOpen(false)}
       >
         <Box sx={{ width: 350, p: 2 }} role="presentation">
-          <MiniCart
-            cartItems={[]}
-            onAdd={() => {}}
-            onRemove={() => {}}
-            onDelete={() => {}}
-          />
+          <MiniCart />
         </Box>
       </Drawer>
     </Box>
