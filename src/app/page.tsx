@@ -51,18 +51,33 @@ export default function Home() {
 
       <Box
         sx={{
+          position: "fixed",
+          width: "100%",
           display: "flex",
           justifyContent: "space-between",
           p: 2,
           flexDirection: "row",
+          bgcolor: "white",
+          zIndex: 1000,
         }}
       >
         <SortSelect onSortChange={handleSortChange} />
         <Searchbar />
       </Box>
-      {filteredAndSortedProducts.map((item) => (
-        <ProductCard key={item.id} {...item} />
-      ))}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          mt: 16,
+          ml: "3vw",
+          gap: 2,
+          justifyContent: "start",
+        }}
+      >
+        {filteredAndSortedProducts.map((item) => (
+          <ProductCard key={item.id} {...item} />
+        ))}
+      </Box>
     </Box>
   );
 }
