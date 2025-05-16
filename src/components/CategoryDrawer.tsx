@@ -1,46 +1,47 @@
+// components/CategoryDrawer.tsx
 import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { useProductStore } from "../app/store/productStore";
 import { getCategoriesWithCount } from "@/lib/utils";
 import DrawerList from "./DrawerList";
 
 type Props = {
+  open: boolean;
+  onClose: () => void;
   onCategoryChange?: (selected: string[]) => void;
 };
 
-export default function CategoryDrawer({ onCategoryChange }: Props) {
-  const [open, setOpen] = useState(false);
+export default function CategoryDrawer({
+  open,
+  onClose,
+  onCategoryChange,
+}: Props) {
   const products = useProductStore((state) => state.products);
-
   const categoriesWithCount = getCategoriesWithCount(products);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleToggle = (category: string) => {
-    setSelectedCategories((prev) => {
-      const newSelection = prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category];
+    const newSelection = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category];
 
-      if (onCategoryChange) {
-        onCategoryChange(newSelection);
-      }
-      return newSelection;
-    });
+    setSelectedCategories(newSelection);
+
+    if (onCategoryChange) {
+      onCategoryChange(newSelection);
+    }
   };
 
-  const toggleDrawer = (newOpen: boolean) => () => setOpen(newOpen);
-
   return (
-    <div>
-      <Button onClick={toggleDrawer(true)}>Kategoriler</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+    <Drawer anchor="left" open={open} onClose={onClose}>
+      <Box sx={{ width: 275, p: 2 }} role="presentation">
         <DrawerList
           categoriesWithCount={categoriesWithCount}
           selectedCategories={selectedCategories}
           onToggleCategory={handleToggle}
         />
-      </Drawer>
-    </div>
+      </Box>
+    </Drawer>
   );
 }
