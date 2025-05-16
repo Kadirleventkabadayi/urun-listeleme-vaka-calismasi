@@ -5,21 +5,17 @@ import Box from "@mui/material/Box";
 import { useProductStore } from "../app/store/productStore";
 import { getCategoriesWithCount } from "@/lib/utils";
 import DrawerList from "./DrawerList";
+import AppHeader from "./AppHeader";
 
 type Props = {
-  open: boolean;
-  onClose: () => void;
   onCategoryChange?: (selected: string[]) => void;
 };
 
-export default function CategoryDrawer({
-  open,
-  onClose,
-  onCategoryChange,
-}: Props) {
+export default function CategoryDrawer({ onCategoryChange }: Props) {
   const products = useProductStore((state) => state.products);
   const categoriesWithCount = getCategoriesWithCount(products);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = (category: string) => {
     const newSelection = selectedCategories.includes(category)
@@ -33,15 +29,27 @@ export default function CategoryDrawer({
     }
   };
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Drawer anchor="left" open={open} onClose={onClose}>
-      <Box sx={{ width: 275, p: 2 }} role="presentation">
-        <DrawerList
-          categoriesWithCount={categoriesWithCount}
-          selectedCategories={selectedCategories}
-          onToggleCategory={handleToggle}
-        />
-      </Box>
-    </Drawer>
+    <Box>
+      <AppHeader onMenuClick={handleDrawerOpen} />
+
+      <Drawer anchor="left" open={open} onClose={handleDrawerClose}>
+        <Box sx={{ width: 275, p: 2 }} role="presentation">
+          <DrawerList
+            categoriesWithCount={categoriesWithCount}
+            selectedCategories={selectedCategories}
+            onToggleCategory={handleToggle}
+          />
+        </Box>
+      </Drawer>
+    </Box>
   );
 }

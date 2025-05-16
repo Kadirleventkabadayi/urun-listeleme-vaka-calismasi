@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 type Props = {
-  onMenuClick: () => void;
+  onMenuClick?: () => void;
 };
 
 export default function AppHeader({ onMenuClick }: Props) {
@@ -21,7 +21,7 @@ export default function AppHeader({ onMenuClick }: Props) {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={onMenuClick}
+            onClick={onMenuClick} // burası önemli, fonksiyon direkt çağrılacak
           >
             <MenuIcon />
           </IconButton>
