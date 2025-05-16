@@ -6,6 +6,7 @@ import { useProductStore } from "./store/productStore";
 import ProductCard from "@/components/ProductCard";
 import Searchbar from "@/components/Searchbar";
 import CategoryDrawer from "@/components/CategoryDrawer";
+import SortSelect from "@/components/SortSelect";
 
 export default function Home() {
   const { products, loading, error, fetchProducts } = useProductStore();
@@ -25,6 +26,9 @@ export default function Home() {
   return (
     <Box>
       <CategoryDrawer onCategoryChange={handleCategoryChange} />
+      {/* <SortSelect
+        onSortChange={(value) => console.log("Seçilen sıralama:", value)}
+      /> */}
       {/* <Searchbar /> */}
       {/* {products.map((item) => (
         <ProductCard key={item.id} {...item} />
