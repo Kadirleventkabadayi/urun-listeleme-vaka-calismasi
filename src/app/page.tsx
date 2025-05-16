@@ -49,9 +49,17 @@ export default function Home() {
     <Box>
       <CategoryDrawer onCategoryChange={handleCategoryChange} />
 
-      <SortSelect onSortChange={handleSortChange} />
-      <Searchbar />
-
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          p: 2,
+          flexDirection: "row",
+        }}
+      >
+        <SortSelect onSortChange={handleSortChange} />
+        <Searchbar />
+      </Box>
       {filteredAndSortedProducts.map((item) => (
         <ProductCard key={item.id} {...item} />
       ))}
