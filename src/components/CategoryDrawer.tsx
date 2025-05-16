@@ -1,46 +1,55 @@
+// components/CategoryDrawer.tsx
 import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { useProductStore } from "../app/store/productStore";
 import { getCategoriesWithCount } from "@/lib/utils";
 import DrawerList from "./DrawerList";
+import AppHeader from "./AppHeader";
 
 type Props = {
   onCategoryChange?: (selected: string[]) => void;
 };
 
 export default function CategoryDrawer({ onCategoryChange }: Props) {
-  const [open, setOpen] = useState(false);
   const products = useProductStore((state) => state.products);
-
   const categoriesWithCount = getCategoriesWithCount(products);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = (category: string) => {
-    setSelectedCategories((prev) => {
-      const newSelection = prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category];
+    const newSelection = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category];
 
-      if (onCategoryChange) {
-        onCategoryChange(newSelection);
-      }
-      return newSelection;
-    });
+    setSelectedCategories(newSelection);
+
+    if (onCategoryChange) {
+      onCategoryChange(newSelection);
+    }
   };
 
-  const toggleDrawer = (newOpen: boolean) => () => setOpen(newOpen);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div>
-      <Button onClick={toggleDrawer(true)}>Kategoriler</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        <DrawerList
-          categoriesWithCount={categoriesWithCount}
-          selectedCategories={selectedCategories}
-          onToggleCategory={handleToggle}
-        />
+    <Box>
+      <AppHeader onMenuClick={handleDrawerOpen} />
+
+      <Drawer anchor="left" open={open} onClose={handleDrawerClose}>
+        <Box sx={{ width: 275, p: 2 }} role="presentation">
+          <DrawerList
+            categoriesWithCount={categoriesWithCount}
+            selectedCategories={selectedCategories}
+            onToggleCategory={handleToggle}
+          />
+        </Box>
       </Drawer>
-    </div>
+    </Box>
   );
 }

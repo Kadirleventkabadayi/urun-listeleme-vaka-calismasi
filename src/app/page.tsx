@@ -29,7 +29,6 @@ export default function Home() {
     setSortOrder(order);
   };
 
-  // Kategori filtresi ve sıralamayı uygulayalım
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products;
 
@@ -49,8 +48,10 @@ export default function Home() {
   return (
     <Box>
       <CategoryDrawer onCategoryChange={handleCategoryChange} />
+
       <SortSelect onSortChange={handleSortChange} />
       <Searchbar />
+
       {filteredAndSortedProducts.map((item) => (
         <ProductCard key={item.id} {...item} />
       ))}
