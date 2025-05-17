@@ -21,7 +21,7 @@ export default function SortSelect({ onSortChange }: Props) {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 150, bgcolor: "white" }}>
+    <FormControl sx={{ m: 0, minWidth: 150, bgcolor: "white" }}>
       <InputLabel id="sort-select-label">Sıralama</InputLabel>
       <Select
         labelId="sort-select-label"

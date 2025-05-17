@@ -34,7 +34,7 @@ export default function Searchbar() {
   return (
     <>
       <Autocomplete
-        sx={{ bgcolor: "white", width: 300 }}
+        sx={{ bgcolor: "white", width: 300, height: "fit-content" }}
         id="Searchbar"
         freeSolo
         disableClearable
