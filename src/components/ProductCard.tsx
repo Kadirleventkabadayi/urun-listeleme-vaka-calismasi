@@ -30,7 +30,7 @@ function ProductCard(product: Product) {
               {price} TL
             </Typography>
             <Typography gutterBottom variant="body2" component="div">
-              rating: {rating.rate} ({rating.count})
+              Puan: {rating.rate} ({rating.count})
             </Typography>
           </CardContent>
         </CardActionArea>

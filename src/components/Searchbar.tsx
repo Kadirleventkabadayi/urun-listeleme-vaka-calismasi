@@ -1,5 +1,4 @@
 import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useProductStore } from "../app/store/productStore";
 import { Product } from "@/lib/types";
@@ -19,7 +18,7 @@ export default function Searchbar() {
     value: string | Product | null
   ) => {
     if (typeof value === "object" && value !== null) {
-      setSelectedProductId(value.id); // sadece ID'yi al
+      setSelectedProductId(value.id);
       setOpen(true);
     } else {
       setSelectedProductId(null);
@@ -34,32 +33,21 @@ export default function Searchbar() {
 
   return (
     <>
-      <Stack spacing={2} sx={{ width: 300 }}>
-        <Autocomplete
-          sx={{ bgcolor: "white" }}
-          id="Searchbar"
-          freeSolo
-          disableClearable
-          options={products}
-          getOptionLabel={(option) =>
-            typeof option === "string" ? option : option.title
-          }
-          filterOptions={(options, state) =>
-            state.inputValue.length >= 2 ? customFilter(options, state) : []
-          }
-          onChange={handleChange}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search Products"
-              InputProps={{
-                ...params.InputProps,
-                type: "search",
-              }}
-            />
-          )}
-        />
-      </Stack>
+      <Autocomplete
+        sx={{ bgcolor: "white", width: 300 }}
+        id="Searchbar"
+        freeSolo
+        disableClearable
+        options={products}
+        getOptionLabel={(option) =>
+          typeof option === "string" ? option : option.title
+        }
+        filterOptions={(options, state) =>
+          state.inputValue.length >= 2 ? customFilter(options, state) : []
+        }
+        onChange={handleChange}
+        renderInput={(params) => <TextField {...params} label="Ürün Ara" />}
+      />
 
       <ProductModal
         open={open}
