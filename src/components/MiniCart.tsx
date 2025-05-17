@@ -8,15 +8,20 @@ import Divider from "@mui/material/Divider";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import ProductModal from "./ProductModal";
 import { useCartStore } from "../app/store/cartStore";
 import { CardMedia } from "@mui/material";
+import { useState } from "react";
 
 export default function MiniCart() {
   const cartItems = useCartStore((state) => state.cartItems);
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const [open, setOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(
+    null
+  );
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -80,8 +85,19 @@ export default function MiniCart() {
               component="img"
               image={item.image}
               alt={item.title}
-              sx={{ width: 50, height: 50, objectFit: "contain", mr: 2 }}
+              onClick={() => {
+                setSelectedProductId(item.id);
+                setOpen(true);
+              }}
+              sx={{
+                width: 50,
+                height: 50,
+                objectFit: "contain",
+                mr: 2,
+                cursor: "pointer",
+              }}
             />
+
             <ListItemText
               primary={item.title}
               secondary={`${item.price.toFixed(2)} ₺ x ${item.quantity} = ${(
@@ -97,6 +113,11 @@ export default function MiniCart() {
           Toplam: <strong>{totalPrice.toFixed(2)} ₺</strong>
         </Typography>
       </Box>
+      <ProductModal
+        open={open}
+        onClose={() => setOpen(false)}
+        productId={selectedProductId}
+      />
     </Box>
   );
 }

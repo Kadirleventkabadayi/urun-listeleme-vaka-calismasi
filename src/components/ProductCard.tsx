@@ -45,11 +45,7 @@ function ProductCard(product: Product) {
         </CardActions>
       </Card>
 
-      <ProductModal
-        open={open}
-        onClose={() => setOpen(false)}
-        product={product}
-      />
+      <ProductModal open={open} onClose={() => setOpen(false)} productId={id} />
     </>
   );
 }

@@ -1,19 +1,23 @@
-import { Product } from "@/lib/types";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useProductStore } from "@/app/store/productStore";
 
 type ProductModalProps = {
   open: boolean;
   onClose: () => void;
-  product: Product | null;
+  productId: number | null;
 };
 
 export default function ProductModal({
   open,
   onClose,
-  product,
+  productId,
 }: ProductModalProps) {
+  const { products } = useProductStore();
+
+  const product = products.find((p) => p.id === productId);
+
   if (!product) return null;
 
   return (

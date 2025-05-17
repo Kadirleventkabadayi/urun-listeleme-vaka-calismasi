@@ -9,7 +9,9 @@ import { createFilterOptions } from "@mui/material/Autocomplete";
 
 export default function Searchbar() {
   const products = useProductStore((state) => state.products);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(
+    null
+  );
   const [open, setOpen] = useState(false);
 
   const handleChange = (
@@ -17,10 +19,10 @@ export default function Searchbar() {
     value: string | Product | null
   ) => {
     if (typeof value === "object" && value !== null) {
-      setSelectedProduct(value);
+      setSelectedProductId(value.id); // sadece ID'yi al
       setOpen(true);
     } else {
-      setSelectedProduct(null);
+      setSelectedProductId(null);
       setOpen(false);
     }
   };
@@ -62,7 +64,7 @@ export default function Searchbar() {
       <ProductModal
         open={open}
         onClose={() => setOpen(false)}
-        product={selectedProduct}
+        productId={selectedProductId}
       />
     </>
   );
