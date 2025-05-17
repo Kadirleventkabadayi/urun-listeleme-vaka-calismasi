@@ -46,16 +46,7 @@ export default function Searchbar() {
           state.inputValue.length >= 2 ? customFilter(options, state) : []
         }
         onChange={handleChange}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search Products"
-            InputProps={{
-              ...params.InputProps,
-              type: "search",
-            }}
-          />
-        )}
+        renderInput={(params) => <TextField {...params} label="Ürün Ara" />}
       />
 
       <ProductModal
