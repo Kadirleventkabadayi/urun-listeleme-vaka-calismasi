@@ -1,42 +1,79 @@
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { Divider, Typography } from "@mui/material";
+import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-type DrawerListProps = {
+type CategoryFilterProps = {
   categoriesWithCount: Record<string, number>;
   selectedCategories: string[];
   onToggleCategory: (category: string) => void;
 };
 
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
 export default function DrawerList({
   categoriesWithCount,
   selectedCategories,
   onToggleCategory,
-}: DrawerListProps) {
+}: CategoryFilterProps) {
+  const categories = Object.entries(categoriesWithCount).map(
+    ([category, count]) => ({
+      label: `${category} (${count})`,
+      value: category,
+    })
+  );
+
+  const handleChange = (
+    _: React.SyntheticEvent,
+    values: { value: string }[]
+  ) => {
+    const selected = values.map((v) => v.value);
+
+    selected.forEach((cat) => {
+      if (!selectedCategories.includes(cat)) {
+        onToggleCategory(cat);
+      }
+    });
+
+    selectedCategories.forEach((cat) => {
+      if (!selected.includes(cat)) {
+        onToggleCategory(cat);
+      }
+    });
+  };
+
   return (
-    <Box sx={{ width: 250, p: 2 }} role="presentation">
-      <Typography variant="h6" gutterBottom>
-        Kategoriler
-      </Typography>
-      <Divider />
-      <List>
-        {Object.entries(categoriesWithCount).map(([category, count]) => (
-          <ListItem key={category} disablePadding>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => onToggleCategory(category)}
-                />
-              }
-              label={`${category} (${count})`}
+    <Autocomplete
+      multiple
+      disableCloseOnSelect
+      disableClearable
+      options={categories}
+      getOptionLabel={(option) => option.label}
+      value={categories.filter((cat) => selectedCategories.includes(cat.value))}
+      onChange={handleChange}
+      renderOption={(props, option, { selected }) => {
+        const { key, ...optionProps } = props;
+        return (
+          <li key={key} {...optionProps}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              checked={selected}
             />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+            {option.label}
+          </li>
+        );
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Kategori Ara"
+          placeholder="Kategori seçin"
+        />
+      )}
+      sx={{
+        width: 250,
+      }}
+    />
   );
 }

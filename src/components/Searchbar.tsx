@@ -19,7 +19,7 @@ export default function Searchbar() {
     value: string | Product | null
   ) => {
     if (typeof value === "object" && value !== null) {
-      setSelectedProductId(value.id); // sadece ID'yi al
+      setSelectedProductId(value.id);
       setOpen(true);
     } else {
       setSelectedProductId(null);
