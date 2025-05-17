@@ -8,10 +8,10 @@ import Searchbar from "@/components/Searchbar";
 import CategoryDrawer from "@/components/CategoryDrawer";
 import SortSelect from "@/components/SortSelect";
 import { sortProductsByPrice } from "@/lib/utils";
+import "../app/styles/Home.scss";
 
 export default function Home() {
   const { products, loading, error, fetchProducts } = useProductStore();
-
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortOrder, setSortOrder] = useState<
     "low-to-high" | "high-to-low" | ""
@@ -24,20 +24,17 @@ export default function Home() {
   const handleCategoryChange = (categories: string[]) => {
     setSelectedCategories(categories);
   };
-
   const handleSortChange = (order: "low-to-high" | "high-to-low" | "") => {
     setSortOrder(order);
   };
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products;
-
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((p) =>
         selectedCategories.includes(p.category)
       );
     }
-
     return sortProductsByPrice(filtered, sortOrder);
   }, [products, selectedCategories, sortOrder]);
 
@@ -49,31 +46,12 @@ export default function Home() {
     <Box>
       <CategoryDrawer onCategoryChange={handleCategoryChange} />
 
-      <Box
-        sx={{
-          position: "fixed",
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-          p: 2,
-          flexDirection: "row",
-          bgcolor: "white",
-          zIndex: 1000,
-        }}
-      >
+      <Box className="headerBar">
         <SortSelect onSortChange={handleSortChange} />
         <Searchbar />
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          mt: 16,
-          ml: "3vw",
-          gap: 2,
-          justifyContent: "start",
-        }}
-      >
+
+      <Box className="productGrid">
         {filteredAndSortedProducts.map((item) => (
           <ProductCard key={item.id} {...item} />
         ))}

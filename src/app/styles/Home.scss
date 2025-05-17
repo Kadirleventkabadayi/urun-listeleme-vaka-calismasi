@@ -1,0 +1,24 @@
+.headerBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--background);
+  z-index: 1000;
+  margin-top: 64px;
+}
+
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 96px;
+  gap: 16px;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+}
