@@ -48,7 +48,7 @@ export default function CategoryDrawer({ onCategoryChange }: Props) {
           },
         }}
       >
-        <Box sx={{ width: 275, p: 2 }} role="presentation">
+        <Box sx={{ width: 300, p: 2 }} role="presentation">
           <DrawerList
             categoriesWithCount={categoriesWithCount}
             selectedCategories={selectedCategories}
@@ -67,7 +67,7 @@ export default function CategoryDrawer({ onCategoryChange }: Props) {
         open={cartDrawerOpen}
         onClose={() => setCartDrawerOpen(false)}
       >
-        <Box sx={{ width: 275, p: 2 }} role="presentation">
+        <Box sx={{ width: 300, p: 2 }} role="presentation">
           <MiniCart />
         </Box>
       </Drawer>

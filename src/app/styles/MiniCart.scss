@@ -1,0 +1,93 @@
+.mini-cart {
+  color: var(--foreground);
+
+  .empty {
+    margin-top: 16px;
+    color: var(--foreground);
+  }
+
+  .cart-item {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    .item-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .product-image {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      cursor: pointer;
+      background-color: var(--background-variant);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--hover-background);
+      }
+    }
+
+    .MuiListItemText-root {
+      max-width: 176px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      .MuiTypography-root {
+        color: var(--foreground);
+      }
+
+      .MuiTypography-body2 {
+        color: var(--foreground);
+        opacity: 0.8;
+        font-size: 0.875rem;
+      }
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      gap: 8px;
+
+      .MuiIconButton-root {
+        color: var(--foreground);
+        padding: 4px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background-color: var(--hover-background);
+        }
+
+        svg {
+          font-size: 20px;
+        }
+      }
+
+      .quantity-value {
+        min-width: 24px;
+        text-align: center;
+        color: var(--foreground);
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .total-price {
+    margin-top: 16px;
+
+    strong {
+      color: var(--foreground);
+    }
+  }
+}

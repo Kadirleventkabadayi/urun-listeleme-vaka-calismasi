@@ -9,6 +9,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ProductModal from "./ProductModal";
+import "../app/styles/MiniCart.scss";
 import { useCartStore } from "../app/store/cartStore";
 import { CardMedia } from "@mui/material";
 import { useState } from "react";
@@ -31,84 +32,68 @@ export default function MiniCart() {
   const sortedItems = [...cartItems].sort((a, b) => b.addedAt - a.addedAt);
 
   return (
-    <Box role="presentation">
+    <Box role="presentation" className="mini-cart">
       <Typography variant="h6" gutterBottom>
         Mini Sepet
       </Typography>
       <Divider sx={{ marginBlock: 2, borderColor: "var(--foreground)" }} />
       <List>
         {sortedItems.length === 0 && (
-          <Typography sx={{ mt: 2 }}>Sepetiniz boş.</Typography>
+          <Typography className="empty">Sepetiniz boş.</Typography>
         )}
 
         {sortedItems.map((item) => (
-          <ListItem
-            key={item.id}
-            secondaryAction={
-              <Box>
-                <IconButton
-                  edge="end"
-                  aria-label="remove"
-                  onClick={() => decreaseQuantity(item.id)}
-                >
-                  <RemoveIcon />
-                </IconButton>
-                <Typography
-                  component="span"
-                  sx={{
-                    mx: 1,
-                    minWidth: 20,
-                    display: "inline-block",
-                    textAlign: "center",
-                  }}
-                >
-                  {item.quantity}
-                </Typography>
-                <IconButton
-                  edge="end"
-                  aria-label="add"
-                  onClick={() => increaseQuantity(item.id)}
-                >
-                  <AddIcon />
-                </IconButton>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => removeFromCart(item.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            }
-          >
-            <CardMedia
-              component="img"
-              image={item.image}
-              alt={item.title}
-              onClick={() => {
-                setSelectedProductId(item.id);
-                setOpen(true);
-              }}
-              sx={{
-                width: 50,
-                height: 50,
-                objectFit: "contain",
-                mr: 2,
-                cursor: "pointer",
-              }}
-            />
-
-            <ListItemText
-              primary={item.title}
-              secondary={`${item.price.toFixed(2)} ₺ x ${item.quantity} = ${(
-                item.price * item.quantity
-              ).toFixed(2)} ₺`}
-            />
+          <ListItem key={item.id} className="cart-item">
+            <Box className="item-content">
+              <CardMedia
+                component="img"
+                image={item.image}
+                alt={item.title}
+                onClick={() => {
+                  setSelectedProductId(item.id);
+                  setOpen(true);
+                }}
+                className="product-image"
+              />
+              <ListItemText
+                primary={item.title}
+                secondary={`${item.price.toFixed(2)} ₺ x ${item.quantity} = ${(
+                  item.price * item.quantity
+                ).toFixed(2)} ₺`}
+              />
+            </Box>
+            <Box className="quantity-controls">
+              <IconButton
+                edge="end"
+                aria-label="remove"
+                onClick={() => decreaseQuantity(item.id)}
+              >
+                <RemoveIcon />
+              </IconButton>
+              <Typography component="span" className="quantity-value">
+                {item.quantity}
+              </Typography>
+              <IconButton
+                edge="end"
+                aria-label="add"
+                onClick={() => increaseQuantity(item.id)}
+              >
+                <AddIcon />
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => removeFromCart(item.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <Box sx={{ mt: 2, textAlign: "right" }}>
+
+      <Divider sx={{ marginBlock: 2, borderColor: "var(--foreground)" }} />
+      <Box className="total-price">
         <Typography variant="subtitle1">
           Toplam: <strong>{totalPrice.toFixed(2)} ₺</strong>
         </Typography>
