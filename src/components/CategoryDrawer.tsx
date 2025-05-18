@@ -41,6 +41,12 @@ export default function CategoryDrawer({ onCategoryChange }: Props) {
         anchor="left"
         open={categoryDrawerOpen}
         onClose={() => setCategoryDrawerOpen(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            backgroundColor: "var(--background)",
+            color: "var(--foreground)",
+          },
+        }}
       >
         <Box sx={{ width: 275, p: 2 }} role="presentation">
           <DrawerList
@@ -51,11 +57,17 @@ export default function CategoryDrawer({ onCategoryChange }: Props) {
         </Box>
       </Drawer>
       <Drawer
+        sx={{
+          "& .MuiDrawer-paper": {
+            backgroundColor: "var(--background)",
+            color: "var(--foreground)",
+          },
+        }}
         anchor="right"
         open={cartDrawerOpen}
         onClose={() => setCartDrawerOpen(false)}
       >
-        <Box sx={{ width: 350, p: 2 }} role="presentation">
+        <Box sx={{ width: 275, p: 2 }} role="presentation">
           <MiniCart />
         </Box>
       </Drawer>

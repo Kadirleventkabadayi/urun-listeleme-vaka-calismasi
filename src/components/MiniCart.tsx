@@ -31,11 +31,11 @@ export default function MiniCart() {
   const sortedItems = [...cartItems].sort((a, b) => b.addedAt - a.addedAt);
 
   return (
-    <Box sx={{ width: 350, p: 2 }} role="presentation">
+    <Box role="presentation">
       <Typography variant="h6" gutterBottom>
         Mini Sepet
       </Typography>
-      <Divider />
+      <Divider sx={{ marginBlock: 2, borderColor: "var(--foreground)" }} />
       <List>
         {sortedItems.length === 0 && (
           <Typography sx={{ mt: 2 }}>Sepetiniz boş.</Typography>

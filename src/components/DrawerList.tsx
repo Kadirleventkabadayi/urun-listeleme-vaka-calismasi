@@ -67,7 +67,7 @@ export default function DrawerList({
       <Typography variant="h6" gutterBottom>
         Kategoriler
       </Typography>
-      <Divider sx={{ marginBlock: 2 }} />
+      <Divider sx={{ marginBlock: 2, borderColor: "var(--foreground)" }} />
       <Autocomplete
         multiple
         freeSolo
