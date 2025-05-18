@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
-
+import "../app/styles/ProductCard.scss";
 import { Product } from "@/lib/types";
 import { useCartStore } from "../app/store/cartStore";
 import ProductModal from "./ProductModal";
@@ -20,9 +20,14 @@ function ProductCard(product: Product) {
 
   return (
     <>
-      <Card key={id} sx={{ width: "18vw" }}>
+      <Card className="product-card" key={id}>
         <CardActionArea onClick={() => setOpen(true)}>
-          <CardMedia component="img" height="140" image={image} alt={title} />
+          <CardMedia
+            className="card-media"
+            component="img"
+            image={image}
+            alt={title}
+          />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {title}
@@ -31,12 +36,21 @@ function ProductCard(product: Product) {
               {price} TL
             </Typography>
             <Typography className="rating">
-              <Rating value={rating.rate} readOnly /> ({rating.count}{" "}
-              değerlendirme)
+              <Rating
+                sx={{
+                  "& .MuiRating-iconEmpty": {
+                    color: "var(--foreground)",
+                    opacity: 0.85,
+                  },
+                }}
+                value={rating.rate}
+                readOnly
+              />
+              ({rating.count} değerlendirme)
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions className="card-actions">
           <Button
             size="small"
             color="primary"

@@ -56,8 +56,17 @@ export default function ProductModal({
           Fiyat: <strong>{product.price} TL</strong>
         </Typography>
         <Typography className="rating">
-          <Rating value={product.rating.rate} readOnly /> (
-          {product.rating.count} değerlendirme)
+          <Rating
+            sx={{
+              "& .MuiRating-iconEmpty": {
+                color: "var(--foreground)",
+                opacity: 0.85,
+              },
+            }}
+            value={product.rating.rate}
+            readOnly
+          />
+          ({product.rating.count} değerlendirme)
         </Typography>
       </Box>
     </Modal>
