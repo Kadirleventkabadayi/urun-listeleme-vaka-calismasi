@@ -1,0 +1,33 @@
+.searchBar {
+  width: 300px !important;
+  background-color: var(--background);
+
+  .MuiInputBase-root {
+    background-color: var(--background);
+    color: var(--foreground);
+    border-radius: 6px;
+
+    fieldset {
+      border-color: var(--border-color, #ddd);
+    }
+
+    &:hover fieldset {
+      border-color: var(--foreground);
+    }
+
+    &.Mui-focused fieldset {
+      border-color: var(--foreground);
+    }
+
+    input {
+      color: var(--foreground);
+    }
+  }
+
+  .MuiInputLabel-root {
+    color: var(--foreground);
+    &.Mui-focused {
+      color: var(--foreground);
+    }
+  }
+}
