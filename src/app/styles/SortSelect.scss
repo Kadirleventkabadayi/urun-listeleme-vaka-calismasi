@@ -1,0 +1,32 @@
+.sortSelect {
+  background-color: var(--background);
+  width: 180px !important;
+  margin: 0;
+
+  /* FormControl’ın Outline’ı */
+  .MuiOutlinedInput-root {
+    border-radius: 6px;
+    background-color: var(--background);
+    fieldset {
+      border-color: var(--border-color, #ddd);
+    }
+    &:hover fieldset {
+      border-color: var(--foreground);
+    }
+    &.Mui-focused fieldset {
+      border-color: var(--foreground);
+      border-width: 1.5px;
+    }
+    .MuiSelect-select {
+      color: var(--foreground); // << BURASI seçilen değerin yazı rengi
+    }
+  }
+
+  /* Label rengi */
+  .MuiInputLabel-root {
+    color: var(--foreground);
+    &.Mui-focused {
+      color: var(--foreground);
+    }
+  }
+}
