@@ -11,6 +11,12 @@
   }
   .card-actions {
     background-color: var(--background-variant);
+    button {
+      &:hover {
+        background-color: var(--primary);
+        color: var(--foreground);
+      }
+    }
   }
   .card-media {
     width: 100%;
