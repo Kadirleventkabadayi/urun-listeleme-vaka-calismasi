@@ -10,6 +10,7 @@ import CardActions from "@mui/material/CardActions";
 import { Product } from "@/lib/types";
 import { useCartStore } from "../app/store/cartStore";
 import ProductModal from "./ProductModal";
+import { Rating } from "@mui/material";
 
 function ProductCard(product: Product) {
   const { id, title, price, image, rating } = product;
@@ -29,8 +30,9 @@ function ProductCard(product: Product) {
             <Typography gutterBottom variant="body2" component="div">
               {price} TL
             </Typography>
-            <Typography gutterBottom variant="body2" component="div">
-              Puan: {rating.rate} ({rating.count})
+            <Typography className="rating">
+              <Rating value={rating.rate} readOnly /> ({rating.count}{" "}
+              değerlendirme)
             </Typography>
           </CardContent>
         </CardActionArea>

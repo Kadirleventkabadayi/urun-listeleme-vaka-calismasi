@@ -1,7 +1,11 @@
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import { useProductStore } from "@/app/store/productStore";
+import { useCartStore } from "@/app/store/cartStore";
+import "../app/styles/ProductModal.scss";
+import { Rating } from "@mui/material";
 
 type ProductModalProps = {
   open: boolean;
@@ -15,42 +19,45 @@ export default function ProductModal({
   productId,
 }: ProductModalProps) {
   const { products } = useProductStore();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const product = products.find((p) => p.id === productId);
-
   if (!product) return null;
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.image,
+    });
+    //start animation after adding to cart
+  };
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          width: 500,
-          bgcolor: "background.paper",
-          p: 4,
-          borderRadius: 2,
-          mx: "auto",
-          my: "10%",
-        }}
-      >
-        <Typography variant="h6" component="h2">
-          {product.title}
-        </Typography>
-        <img
-          src={product.image}
-          alt={product.title}
-          style={{
-            width: "100%",
-            maxHeight: 300,
-            objectFit: "contain",
-            marginTop: 16,
-          }}
-        />
-        <Typography sx={{ mt: 2 }}>{product.description}</Typography>
-        <Typography sx={{ mt: 2 }}>
+      <Box className="product-modal">
+        <Box className="modal-header">
+          <Typography variant="h6" component="h2">
+            {product.title}
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddToCart}
+            className="add-to-cart"
+          >
+            Sepete Ekle
+          </Button>
+        </Box>
+        <img src={product.image} alt={product.title} />
+        <Typography>{product.description}</Typography>
+        <Typography>
           Fiyat: <strong>{product.price} TL</strong>
         </Typography>
-        <Typography>
-          Puan: {product.rating.rate} ({product.rating.count} değerlendirme)
+        <Typography className="rating">
+          <Rating value={product.rating.rate} readOnly /> (
+          {product.rating.count} değerlendirme)
         </Typography>
       </Box>
     </Modal>
