@@ -69,13 +69,20 @@ export default function DrawerList({
       </Typography>
       <Divider sx={{ marginBlock: 2 }} />
       <Autocomplete
-        classes={{ paper: "custom-autocomplete-paper" }}
         multiple
         freeSolo
         options={categories}
         value={selectedOptions}
         disableCloseOnSelect
         disableClearable
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
+            },
+          },
+        }}
         getOptionLabel={(option) =>
           typeof option === "string" ? option : option.label
         }
@@ -93,6 +100,12 @@ export default function DrawerList({
                 icon={icon}
                 checkedIcon={checkedIcon}
                 checked={selected}
+                sx={{
+                  color: "var(--foreground)",
+                  "&.Mui-checked": {
+                    color: "var(--foreground)",
+                  },
+                }}
               />
               {option.label}
             </li>

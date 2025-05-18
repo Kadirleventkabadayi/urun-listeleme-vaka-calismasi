@@ -34,8 +34,8 @@ export default function SortSelect({ onSortChange }: Props) {
         MenuProps={{
           PaperProps: {
             sx: {
-              backgroundColor: "var(--background)", // açılır menü arka plan rengi
-              color: "var(--foreground)", // yazı rengi
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
             },
           },
         }}
