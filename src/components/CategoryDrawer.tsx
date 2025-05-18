@@ -43,7 +43,7 @@ export default function CategoryDrawer({ onCategoryChange }: Props) {
         onClose={() => setCategoryDrawerOpen(false)}
         sx={{
           "& .MuiDrawer-paper": {
-            backgroundColor: "var(--background)",
+            backgroundColor: "var(--background-variant)",
             color: "var(--foreground)",
           },
         }}
@@ -59,7 +59,7 @@ export default function CategoryDrawer({ onCategoryChange }: Props) {
       <Drawer
         sx={{
           "& .MuiDrawer-paper": {
-            backgroundColor: "var(--background)",
+            backgroundColor: "var(--background-variant)",
             color: "var(--foreground)",
           },
         }}
