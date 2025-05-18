@@ -38,7 +38,12 @@ export default function ProductModal({
     <Modal open={open} onClose={onClose}>
       <Box className="product-modal">
         <Box className="modal-header">
-          <Typography variant="h6" component="h2">
+          <Typography
+            variant="h6"
+            component="h2"
+            className="modal-title"
+            title={product.title}
+          >
             {product.title}
           </Typography>
           <Button
@@ -51,7 +56,9 @@ export default function ProductModal({
           </Button>
         </Box>
         <img src={product.image} alt={product.title} />
-        <Typography>{product.description}</Typography>
+        <Typography title={product.description}>
+          {product.description}
+        </Typography>
         <Typography>
           Fiyat: <strong>{product.price} TL</strong>
         </Typography>
