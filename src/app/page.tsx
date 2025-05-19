@@ -11,7 +11,7 @@ import { sortProductsByPrice } from "@/lib/utils";
 import "../app/styles/Home.scss";
 
 export default function Home() {
-  const { products, loading, error, fetchProducts } = useProductStore();
+  const { products, loading, loaded, error, fetchProducts } = useProductStore();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [sortOrder, setSortOrder] = useState<
     "low-to-high" | "high-to-low" | ""
@@ -38,9 +38,9 @@ export default function Home() {
     return sortProductsByPrice(filtered, sortOrder);
   }, [products, selectedCategories, sortOrder]);
 
-  if (loading) return <div>Loading...</div>;
+  if (!loaded || loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
-  if (products.length === 0) return <div>No products available</div>;
+  if (loaded && products.length === 0) return <div>No products available</div>;
 
   return (
     <Box>
