@@ -6,6 +6,7 @@ import { useProductStore } from "@/app/store/productStore";
 import { useCartStore } from "@/app/store/cartStore";
 import "../app/styles/ProductModal.scss";
 import { Rating } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 type ProductModalProps = {
   open: boolean;
@@ -51,6 +52,7 @@ export default function ProductModal({
             color="primary"
             onClick={handleAddToCart}
             className="add-to-cart"
+            endIcon={<ShoppingCartIcon />}
           >
             Sepete Ekle
           </Button>
@@ -63,17 +65,8 @@ export default function ProductModal({
           Fiyat: <strong>{product.price} TL</strong>
         </Typography>
         <Typography className="rating">
-          <Rating
-            sx={{
-              "& .MuiRating-iconEmpty": {
-                color: "var(--foreground)",
-                opacity: 0.85,
-              },
-            }}
-            value={product.rating.rate}
-            readOnly
-          />
-          ({product.rating.count} değerlendirme)
+          <Rating value={product.rating.rate} readOnly />({product.rating.count}{" "}
+          değerlendirme)
         </Typography>
       </Box>
     </Modal>

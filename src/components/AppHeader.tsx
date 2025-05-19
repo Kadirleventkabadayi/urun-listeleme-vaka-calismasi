@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 type Props = {
   onMenuClick?: () => void;
@@ -14,7 +15,7 @@ type Props = {
 export default function AppHeader({ onMenuClick, onCartClick }: Props) {
   return (
     <Box sx={{ width: "100vw" }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ paddingRight: "0px !important" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -29,7 +30,11 @@ export default function AppHeader({ onMenuClick, onCartClick }: Props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Kadir Levent Kabadayı
           </Typography>
-          <Button color="inherit" onClick={onCartClick}>
+          <Button
+            color="inherit"
+            onClick={onCartClick}
+            endIcon={<ShoppingCartIcon />}
+          >
             Sepet
           </Button>
         </Toolbar>

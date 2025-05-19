@@ -11,6 +11,7 @@ import { Product } from "@/lib/types";
 import { useCartStore } from "../app/store/cartStore";
 import ProductModal from "./ProductModal";
 import { Rating } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function ProductCard(product: Product) {
   const { id, title, price, image, rating } = product;
@@ -36,17 +37,8 @@ function ProductCard(product: Product) {
               {price} TL
             </Typography>
             <Typography className="rating">
-              <Rating
-                sx={{
-                  "& .MuiRating-iconEmpty": {
-                    color: "var(--foreground)",
-                    opacity: 0.85,
-                  },
-                }}
-                value={rating.rate}
-                readOnly
-              />
-              ({rating.count} değerlendirme)
+              <Rating value={rating.rate} readOnly />({rating.count}
+              değerlendirme)
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -55,6 +47,7 @@ function ProductCard(product: Product) {
             size="small"
             color="primary"
             onClick={() => addToCart({ id, title, price, image })}
+            endIcon={<ShoppingCartIcon />}
           >
             Sepete Ekle
           </Button>
