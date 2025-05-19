@@ -1,0 +1,28 @@
+.MuiAutocomplete-paper {
+  max-height: 300px;
+  .custom-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--autocomplete-hover);
+    }
+
+    &.selected {
+      background-color: var(--autocomplete-selected);
+    }
+  }
+}
+.MuiOutlinedInput-root {
+  color: var(--foreground) !important;
+  background-color: var(--background) !important;
+  border-radius: 6px !important;
+  fieldset {
+    border-color: var(--border-color, #ddd) !important;
+  }
+  input::placeholder {
+    opacity: 0.9;
+  }
+}

@@ -1,0 +1,92 @@
+.product-modal {
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 32px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  margin: 10% auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  .MuiButton-root {
+    width: 40% !important;
+    background-color: var(--primary) !important;
+    color: white !important;
+    svg {
+      fill: white !important;
+    }
+    &:hover {
+      background-color: var(--autocomplete-selected) !important;
+      color: white !important;
+      svg {
+        fill: white !important;
+      }
+    }
+  }
+  .Mui-disabled {
+    background-color: var(--autocomplete-selected) !important;
+    color: var(--foreground) !important;
+    svg {
+      fill: var(--foreground) !important;
+    }
+  }
+
+  img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border: 1px solid var(--border-color);
+    background-color: white;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+
+  p,
+  .MuiTypography-root {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: var(--foreground);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    cursor: default;
+
+    strong {
+      font-weight: 600;
+      color: var(--foreground);
+    }
+  }
+
+  .rating {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 4px;
+    display: flex;
+    align-items: end;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 16px;
+
+      max-width: 10em;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      cursor: default;
+    }
+  }
+}

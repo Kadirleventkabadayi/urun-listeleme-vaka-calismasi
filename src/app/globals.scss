@@ -1,12 +1,30 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --background-variant: #ececec;
+  --hover-background: #f1f1f1;
+  --border-color: #d0d0d0;
+  --input-focus: #333333;
+  --selection: #e0e0e0;
+  --selection-hover: #d0d0d0;
+  --autocomplete-hover: #fcf4e9;
+  --autocomplete-selected: #ffefd9;
+  --primary: #1976d2;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --background-variant: #1a1a1a;
+    --hover-background: #1a1a1a;
+    --border-color: #444;
+    --input-focus: #aaa;
+    --selection: #333;
+    --selection-hover: #444;
+    --autocomplete-hover: #a86f1e;
+    --autocomplete-selected: #e4962a;
+    --primary: #1976d2;
   }
 }
 

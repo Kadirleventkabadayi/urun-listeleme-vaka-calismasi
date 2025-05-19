@@ -1,64 +1,131 @@
-import { useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import { useProductStore } from "../app/store/productStore";
-import { getCategoriesWithCount } from "@/lib/utils";
-import DrawerList from "./DrawerList";
-import AppHeader from "./AppHeader";
-import MiniCart from "./MiniCart";
+import {
+  Autocomplete,
+  Checkbox,
+  TextField,
+  InputAdornment,
+  Divider,
+  Typography,
+} from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import SearchIcon from "@mui/icons-material/Search";
+import "../app/styles/DrawerList.scss";
 
-type Props = {
-  onCategoryChange?: (selected: string[]) => void;
+type CategoryFilterProps = {
+  categoriesWithCount: Record<string, number>;
+  selectedCategories: string[];
+  onToggleCategory: (category: string) => void;
 };
 
-export default function CategoryDrawer({ onCategoryChange }: Props) {
-  const products = useProductStore((state) => state.products);
-  const categoriesWithCount = getCategoriesWithCount(products);
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [categoryDrawerOpen, setCategoryDrawerOpen] = useState(false);
-  const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+type OptionType = {
+  label: string;
+  value: string;
+};
 
-  const handleToggle = (category: string) => {
-    const newSelection = selectedCategories.includes(category)
-      ? selectedCategories.filter((c) => c !== category)
-      : [...selectedCategories, category];
+export default function CategoryDrawer({
+  categoriesWithCount,
+  selectedCategories,
+  onToggleCategory,
+}: CategoryFilterProps) {
+  const categories: OptionType[] = Object.entries(categoriesWithCount).map(
+    ([category, count]) => ({
+      label: `${category} (${count})`,
+      value: category,
+    })
+  );
 
-    setSelectedCategories(newSelection);
+  const selectedOptions = categories.filter((cat) =>
+    selectedCategories.includes(cat.value)
+  );
 
-    if (onCategoryChange) {
-      onCategoryChange(newSelection);
-    }
+  const handleChange = (
+    _event: React.SyntheticEvent,
+    value: (string | OptionType)[]
+  ) => {
+    const newSelectedValues = value.map((opt) =>
+      typeof opt === "string" ? opt : opt.value
+    );
+
+    newSelectedValues.forEach((val) => {
+      if (!selectedCategories.includes(val)) {
+        onToggleCategory(val);
+      }
+    });
+
+    selectedCategories.forEach((val) => {
+      if (!newSelectedValues.includes(val)) {
+        onToggleCategory(val);
+      }
+    });
   };
 
   return (
-    <Box sx={{ minHeight: "60px" }}>
-      <AppHeader
-        onMenuClick={() => setCategoryDrawerOpen(true)}
-        onCartClick={() => setCartDrawerOpen(true)}
-      />
-      <Drawer
-        anchor="left"
-        open={categoryDrawerOpen}
-        onClose={() => setCategoryDrawerOpen(false)}
-      >
-        <Box sx={{ width: 275, p: 2 }} role="presentation">
-          <DrawerList
-            categoriesWithCount={categoriesWithCount}
-            selectedCategories={selectedCategories}
-            onToggleCategory={handleToggle}
+    <>
+      <Typography variant="h6" gutterBottom>
+        Kategoriler
+      </Typography>
+      <Divider sx={{ marginBlock: 2, borderColor: "var(--foreground)" }} />
+      <Autocomplete
+        multiple
+        freeSolo
+        options={categories}
+        value={selectedOptions}
+        disableCloseOnSelect
+        disableClearable
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
+            },
+          },
+        }}
+        getOptionLabel={(option) =>
+          typeof option === "string" ? option : option.label
+        }
+        isOptionEqualToValue={(opt, val) => opt.value === val.value}
+        onChange={handleChange}
+        renderOption={(props, option, { selected }) => {
+          const { key, ...rest } = props;
+          return (
+            <li
+              key={key}
+              {...rest}
+              className={`custom-option ${selected ? "selected" : ""}`}
+            >
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                checked={selected}
+                sx={{
+                  color: "var(--foreground)",
+                  "&.Mui-checked": {
+                    color: "var(--foreground)",
+                  },
+                }}
+              />
+              {option.label}
+            </li>
+          );
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Kategori Ara"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
-        </Box>
-      </Drawer>
-      <Drawer
-        anchor="right"
-        open={cartDrawerOpen}
-        onClose={() => setCartDrawerOpen(false)}
-      >
-        <Box sx={{ width: 350, p: 2 }} role="presentation">
-          <MiniCart />
-        </Box>
-      </Drawer>
-    </Box>
+        )}
+      />
+    </>
   );
 }

@@ -5,6 +5,7 @@ import { Product } from "@/lib/types";
 import { useState } from "react";
 import ProductModal from "./ProductModal";
 import { createFilterOptions } from "@mui/material/Autocomplete";
+import "../app/styles/Searchbar.scss";
 
 export default function Searchbar() {
   const products = useProductStore((state) => state.products);
@@ -34,7 +35,7 @@ export default function Searchbar() {
   return (
     <>
       <Autocomplete
-        sx={{ bgcolor: "white", width: 300 }}
+        className="searchBar"
         id="Searchbar"
         freeSolo
         disableClearable
@@ -46,7 +47,25 @@ export default function Searchbar() {
           state.inputValue.length >= 2 ? customFilter(options, state) : []
         }
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} label="Ürün Ara" />}
+        renderInput={(params) => (
+          <TextField {...params} label="Ürün Ara" variant="outlined" />
+        )}
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
+              "& .MuiAutocomplete-option": {
+                "&:hover": {
+                  backgroundColor: "var(--hover-background)",
+                },
+                '&[aria-selected="true"]': {
+                  backgroundColor: "var(--hover-background)",
+                },
+              },
+            },
+          },
+        }}
       />
 
       <ProductModal

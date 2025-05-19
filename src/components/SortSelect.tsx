@@ -2,6 +2,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import "../app/styles/SortSelect.scss";
 
 import { useState } from "react";
 
@@ -21,7 +22,7 @@ export default function SortSelect({ onSortChange }: Props) {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 150, bgcolor: "white" }}>
+    <FormControl className="sortSelect">
       <InputLabel id="sort-select-label">Sıralama</InputLabel>
       <Select
         labelId="sort-select-label"
@@ -30,6 +31,14 @@ export default function SortSelect({ onSortChange }: Props) {
         onChange={handleChange}
         label="Sıralama"
         autoWidth
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
+            },
+          },
+        }}
       >
         <MenuItem value="">
           <em>Seçiniz</em>

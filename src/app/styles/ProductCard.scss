@@ -1,0 +1,77 @@
+.product-card {
+  width: 18vw;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--background-variant);
+
+  &:hover {
+    transform: translateY(-4px);
+    cursor: pointer;
+  }
+  .card-actions {
+    background-color: var(--background-variant);
+    button {
+      &:hover {
+        background-color: var(--primary);
+        color: var(--foreground);
+      }
+    }
+  }
+  .MuiButton-root {
+    width: 40% !important;
+    background-color: var(--primary) !important;
+    color: white !important;
+    svg {
+      fill: white !important;
+    }
+    &:hover {
+      background-color: var(--autocomplete-selected) !important;
+      color: white !important;
+      svg {
+        fill: white !important;
+      }
+    }
+  }
+  .Mui-disabled {
+    background-color: var(--autocomplete-selected) !important;
+    color: var(--foreground) !important;
+    svg {
+      fill: var(--foreground) !important;
+    }
+  }
+  .card-media {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: white;
+    border: 1px solid var(--border-color);
+  }
+
+  .MuiCardContent-root {
+    background-color: var(--background-variant);
+    .MuiTypography-h5 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--foreground);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .MuiTypography-body2 {
+      color: var(--foreground);
+      opacity: 0.9;
+    }
+
+    .rating {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin-top: 4px;
+      display: flex;
+      align-items: end;
+      color: var(--foreground);
+    }
+  }
+}
