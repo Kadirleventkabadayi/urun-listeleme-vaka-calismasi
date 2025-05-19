@@ -8,6 +8,8 @@ import Searchbar from "@/components/Searchbar";
 import CategoryDrawer from "@/components/CategoryDrawer";
 import SortSelect from "@/components/SortSelect";
 import { sortProductsByPrice } from "@/lib/utils";
+import HomeSkeleton from "@/components/HomeSkeleton";
+import HeaderSkeleton from "@/components/HeaderSkoleton";
 import "../app/styles/Home.scss";
 
 export default function Home() {
@@ -38,7 +40,19 @@ export default function Home() {
     return sortProductsByPrice(filtered, sortOrder);
   }, [products, selectedCategories, sortOrder]);
 
-  if (!loaded || loading) return <div>Loading...</div>;
+  if (!loaded || loading)
+    return (
+      <>
+        <Box>
+          <HeaderSkeleton />
+        </Box>
+        <Box className="productGrid">
+          {Array.from({ length: 16 }).map((_, index) => (
+            <HomeSkeleton key={index} />
+          ))}
+        </Box>
+      </>
+    );
   if (error) return <div>{error}</div>;
   if (loaded && products.length === 0) return <div>No products available</div>;
 
