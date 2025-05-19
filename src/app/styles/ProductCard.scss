@@ -18,6 +18,28 @@
       }
     }
   }
+  .MuiButton-root {
+    width: 40% !important;
+    background-color: var(--primary) !important;
+    color: white !important;
+    svg {
+      fill: white !important;
+    }
+    &:hover {
+      background-color: var(--autocomplete-selected) !important;
+      color: white !important;
+      svg {
+        fill: white !important;
+      }
+    }
+  }
+  .Mui-disabled {
+    background-color: var(--autocomplete-selected) !important;
+    color: var(--foreground) !important;
+    svg {
+      fill: var(--foreground) !important;
+    }
+  }
   .card-media {
     width: 100%;
     height: 200px;

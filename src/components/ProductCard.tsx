@@ -12,12 +12,20 @@ import { useCartStore } from "../app/store/cartStore";
 import ProductModal from "./ProductModal";
 import { Rating } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 function ProductCard(product: Product) {
   const { id, title, price, image, rating } = product;
   const addToCart = useCartStore((state) => state.addToCart);
 
   const [open, setOpen] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addToCart({ id, title, price, image });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
     <>
@@ -37,7 +45,7 @@ function ProductCard(product: Product) {
               {price} TL
             </Typography>
             <Typography className="rating">
-              <Rating value={rating.rate} readOnly />({rating.count}
+              <Rating value={rating.rate} readOnly />({rating.count}{" "}
               değerlendirme)
             </Typography>
           </CardContent>
@@ -45,11 +53,11 @@ function ProductCard(product: Product) {
         <CardActions className="card-actions">
           <Button
             size="small"
-            color="primary"
-            onClick={() => addToCart({ id, title, price, image })}
-            endIcon={<ShoppingCartIcon />}
+            onClick={handleAddToCart}
+            endIcon={added ? <CheckCircleIcon /> : <ShoppingCartIcon />}
+            disabled={added}
           >
-            Sepete Ekle
+            {added ? "Eklendi!" : "Sepete Ekle"}
           </Button>
         </CardActions>
       </Card>

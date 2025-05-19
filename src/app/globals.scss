@@ -9,6 +9,7 @@
   --selection-hover: #d0d0d0;
   --autocomplete-hover: #fcf4e9;
   --autocomplete-selected: #ffefd9;
+  --primary: #1976d2;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@
     --selection-hover: #444;
     --autocomplete-hover: #a86f1e;
     --autocomplete-selected: #e4962a;
+    --primary: #1976d2;
   }
 }
 

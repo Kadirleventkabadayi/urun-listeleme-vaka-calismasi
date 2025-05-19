@@ -7,6 +7,8 @@ import { useCartStore } from "@/app/store/cartStore";
 import "../app/styles/ProductModal.scss";
 import { Rating } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useState } from "react";
 
 type ProductModalProps = {
   open: boolean;
@@ -21,6 +23,7 @@ export default function ProductModal({
 }: ProductModalProps) {
   const { products } = useProductStore();
   const addToCart = useCartStore((state) => state.addToCart);
+  const [added, setAdded] = useState(false);
 
   const product = products.find((p) => p.id === productId);
   if (!product) return null;
@@ -32,7 +35,8 @@ export default function ProductModal({
       price: product.price,
       image: product.image,
     });
-    //start animation after adding to cart
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
   };
 
   return (
@@ -49,12 +53,11 @@ export default function ProductModal({
           </Typography>
           <Button
             variant="contained"
-            color="primary"
             onClick={handleAddToCart}
-            className="add-to-cart"
-            endIcon={<ShoppingCartIcon />}
+            endIcon={added ? <CheckCircleIcon /> : <ShoppingCartIcon />}
+            disabled={added}
           >
-            Sepete Ekle
+            {added ? "Eklendi!" : "Sepete Ekle"}
           </Button>
         </Box>
         <img src={product.image} alt={product.title} />

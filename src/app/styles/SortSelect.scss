@@ -3,7 +3,6 @@
   width: 180px !important;
   margin: 0;
 
-  /* FormControl’ın Outline’ı */
   .MuiOutlinedInput-root {
     border-radius: 6px;
     background-color: var(--background);
@@ -18,7 +17,7 @@
       border-width: 1.5px;
     }
     .MuiSelect-select {
-      color: var(--foreground); // << BURASI seçilen değerin yazı rengi
+      color: var(--foreground);
     }
   }
 
