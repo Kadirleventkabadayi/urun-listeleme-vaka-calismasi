@@ -5,7 +5,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useProductStore } from "./store/productStore";
 import ProductCard from "@/components/ProductCard";
 import Searchbar from "@/components/Searchbar";
-import CategoryDrawer from "@/components/CategoryDrawer";
+import DrawerContainer from "@/components/DrawerContainer";
 import SortSelect from "@/components/SortSelect";
 import { sortProductsByPrice } from "@/lib/utils";
 import HomeSkeleton from "@/components/HomeSkeleton";
@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <Box>
-      <CategoryDrawer onCategoryChange={handleCategoryChange} />
+      <DrawerContainer onCategoryChange={handleCategoryChange} />
 
       <Box className="headerBar">
         <SortSelect onSortChange={handleSortChange} />
